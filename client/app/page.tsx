@@ -5,9 +5,10 @@ import { TreeNodes } from "./_components/tree-node";
 import { TreeNode } from "@/types/interface";
 import { TreeNodesContainer } from "./_components/tree-nodes-container";
 import { toast } from "sonner";
+import { TreeNodeSkeleton } from "./_components/tree-node-skeleton";
 
 export default function Home() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const [trees, setTrees] = useState<TreeNode[]>([]);
@@ -173,7 +174,11 @@ export default function Home() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <TreeNodeSkeleton />
+      </div>
+    );
   }
 
   if (error) {
