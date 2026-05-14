@@ -107,6 +107,7 @@ export default function Home() {
 
   const createNode = useCallback(async (data: Partial<TreeNode>) => {
     try {
+      const loadingToast = toast.loading("Creating a new child node...");
       const res = await axios.post<TreeNode>(
         `${process.env.NEXT_PUBLIC_API_URL}/api/node/`,
         { ...data },
@@ -125,6 +126,8 @@ export default function Home() {
         });
         return updatedTrees;
       });
+      toast.success("Child node created successfully.");
+      toast.dismiss(loadingToast);
     } catch (error) {
       console.error(error);
       throw new Error("Failed to create the node");
